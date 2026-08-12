@@ -1,0 +1,38 @@
+import Book from "../model/bookModel.js";
+
+export const getBook = async(req, res) => {
+    try {
+        const books = await Book.find();
+        return res.status(200).json({
+            count: books.length,
+            data: books
+        });
+    } catch (error) {
+        console.log("Get Books:", error.message);
+        res.status(500).json({message: error.message});
+    }
+}
+
+export const addBook = async(req, res) => {
+    try {
+        const { title, author, publishYear } = req.body;
+        if(!title || !author || !publishYear){
+            return res.status(400).json({
+                message: "Enter all required fields"
+            })
+        }
+        const book = await Book.create({
+            title,
+            author,
+            publishYear
+        });
+        return res.status(201).json({
+            message: "Book added successfully",
+            book: book
+        });
+        
+    } catch (error) {
+        console.log("Add Book:", error.message);
+        res.status(500).json({ message: error.message });
+    }
+}
