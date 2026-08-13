@@ -5,7 +5,7 @@ export const getBook = async(req, res) => {
         const books = await Book.find();
         return res.status(200).json({
             count: books.length,
-            data: books
+            book: books
         });
     } catch (error) {
         console.log("Get Books:", error.message);
@@ -40,7 +40,7 @@ export const addBook = async(req, res) => {
 export const getBookDetail = async(req, res) => {
     try {
         const id = req.params.id;
-        const { title, author, publishYear } = req.body;
+
         const book = await Book.findById(id);
         if(!book){
             return res.status(404).json({ message: "Book not found" });

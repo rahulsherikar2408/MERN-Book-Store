@@ -5,11 +5,11 @@ const router = express.Router();
 
 router.get('/list', getBook);
 
-router.post('/add', addBook);
+router.post('/create', addBook);
 
-router.get('/detail/:id', getBookDetail);
+router.get('/details/:id', getBookDetail);
 
-router.put('/update/:id', updateBook);
+router.put('/edit/:id', updateBook);
 
 router.delete('/delete/:id', deleteBook);
 
