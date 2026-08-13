@@ -13,11 +13,20 @@ const PORT = process.env.PORT;
 connectDB();
 
 // Middlewares
+// Middle ware for parsing request body
 app.use(express.json());
+
+// Middleware for handling CORS Policy
+app.use(cors({
+    origin: "http://localhost:5173",
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type'],
+}));
 
 //Routes
 app.use('/api/books', bookRouter);
 
+// Starting the server
 app.listen(PORT, () => {
     console.log(`Server is running on Port: ${PORT}`)
 });
