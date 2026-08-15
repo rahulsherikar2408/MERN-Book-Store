@@ -15,7 +15,7 @@ export const getBook = async(req, res) => {
 
 export const addBook = async(req, res) => {
     try {
-        const { title, author, publishYear } = req.body;
+        const { title, author, publishYear, description } = req.body;
         if(!title || !author || !publishYear){
             return res.status(400).json({
                 message: "Enter all required fields"
@@ -24,7 +24,8 @@ export const addBook = async(req, res) => {
         const book = await Book.create({
             title,
             author,
-            publishYear
+            publishYear,
+            description
         });
         return res.status(201).json({
             message: "Book added successfully",
@@ -58,7 +59,7 @@ export const getBookDetail = async(req, res) => {
 export const updateBook = async(req, res) => {
     try {
         const id = req.params.id;
-        const { title, author, publishYear } = req.body;
+        const { title, author, publishYear, description } = req.body;
         if(!title || !author || !publishYear){
             return res.status(400).json({
                 message: "Enter all required fields"
@@ -68,7 +69,8 @@ export const updateBook = async(req, res) => {
         const result = await Book.findByIdAndUpdate(id, {
             title,
             author,
-            publishYear
+            publishYear,
+            description
         });
 
         if(!result){
@@ -80,7 +82,8 @@ export const updateBook = async(req, res) => {
             book: {
                 title,
                 author,
-                publishYear
+                publishYear,
+                description
             }
         });
 
