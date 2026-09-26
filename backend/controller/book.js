@@ -1,22 +1,22 @@
 import Book from "../model/bookModel.js";
 
-export const getBook = async(req, res) => {
+export const getBook = async (req, res) => {
     try {
-        const books = await Book.find();
+        const books = await Book.find({ user: req.user.id });
         return res.status(200).json({
             count: books.length,
             book: books
         });
     } catch (error) {
         console.log("Get Books:", error.message);
-        res.status(500).json({message: error.message});
+        res.status(500).json({ message: error.message });
     }
 }
 
-export const addBook = async(req, res) => {
+export const addBook = async (req, res) => {
     try {
         const { title, author, publishYear, description } = req.body;
-        if(!title || !author || !publishYear){
+        if (!title || !author || !publishYear) {
             return res.status(400).json({
                 message: "Enter all required fields"
             })
@@ -25,25 +25,29 @@ export const addBook = async(req, res) => {
             title,
             author,
             publishYear,
-            description
+            description,
+            user: req.user.id
         });
         return res.status(201).json({
             message: "Book added successfully",
             book: book
         });
-        
+
     } catch (error) {
         console.log("Add Book:", error.message);
         res.status(500).json({ message: error.message });
     }
 }
 
-export const getBookDetail = async(req, res) => {
+export const getBookDetail = async (req, res) => {
     try {
         const id = req.params.id;
 
-        const book = await Book.findById(id);
-        if(!book){
+        const book = await Book.findById({
+            _id: id,
+            user: req.user.id
+        });
+        if (!book) {
             return res.status(404).json({ message: "Book not found" });
         }
         return res.status(200).json({
@@ -56,24 +60,33 @@ export const getBookDetail = async(req, res) => {
     }
 }
 
-export const updateBook = async(req, res) => {
+export const updateBook = async (req, res) => {
     try {
         const id = req.params.id;
         const { title, author, publishYear, description } = req.body;
-        if(!title || !author || !publishYear){
+        if (!title || !author || !publishYear) {
             return res.status(400).json({
                 message: "Enter all required fields"
             })
         }
 
-        const result = await Book.findByIdAndUpdate(id, {
-            title,
-            author,
-            publishYear,
-            description
-        });
+        const result = await Book.findByIdAndUpdate(
+            {
+                _id: id,
+                user: req.user.id
+            },
+            {
+                title,
+                author,
+                publishYear,
+                description
+            },
+            {
+                new: true
+            }
+        );
 
-        if(!result){
+        if (!result) {
             return res.status(404).json({ message: "Book not found" });
         }
 
@@ -93,12 +106,15 @@ export const updateBook = async(req, res) => {
     }
 }
 
-export const deleteBook = async(req, res) => {
+export const deleteBook = async (req, res) => {
     try {
         const id = req.params.id;
-        const result = await Book.findByIdAndDelete(id);
+        const result = await Book.findByIdAndDelete({
+            _id: id,
+            user: req.user.id
+        });
 
-        if(!result){
+        if (!result) {
             return res.status(404).json({ message: "Book not found" });
         }
 
