@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { MdOutlineAddBox } from 'react-icons/md';
 import Spinner from '../components/Spinner';
@@ -6,6 +5,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import BooksTable from '../components/home/BooksTable';
 import BooksCard from '../components/home/BooksCard';
+import api from '../api/api';
 
 function Home() {
 
@@ -16,7 +16,7 @@ function Home() {
 
   useEffect(() => {
     setLoading(true);
-    axios.get('http://localhost:8000/api/books/list')
+    api.get("/books/list")
       .then((response) => {
         // console.log(response.data.book)
         setBooks(response.data.book);

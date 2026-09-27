@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
-import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+import api from '../api/api';
 
 function EditBook() {
 
@@ -18,7 +18,7 @@ function EditBook() {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:8000/api/books/details/${id}`)
+    api.get(`/books/details/${id}`)
       .then((response) => {
         // console.log(response.data.book);
         setAuthor(response.data.book.author);
@@ -41,7 +41,7 @@ function EditBook() {
       description
     };
     setLoading(true);
-    axios.put(`http://localhost:8000/api/books/edit/${id}`, data)
+    api.put(`/books/edit/${id}`, data)
       .then(() => {
         setLoading(false);
         enqueueSnackbar('Book Edited successfully', { variant: 'success' });

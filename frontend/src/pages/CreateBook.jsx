@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+import api from '../api/api';
 
 function CreateBook() {
 
@@ -23,7 +23,7 @@ function CreateBook() {
       description
     };
     setLoading(true);
-    axios.post(`http://localhost:8000/api/books/create`, data)
+    api.post("/books/create", data)
       .then(() => {
         setLoading(false);
         enqueueSnackbar('Book Created successfully', { variant: 'success' });
@@ -31,7 +31,7 @@ function CreateBook() {
       })
       .catch((error) => {
         setLoading(false);
-        enqueueSnackbar('Book Created successfully', { variant: 'success' });
+        enqueueSnackbar(error.response?.data?.message || 'Error creating book', { variant: 'error' });
         console.log(error);
       })
   }
