@@ -25,11 +25,11 @@ function ShowBook() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen bg-gray-50 pt-20 p-4">
       <div className="max-w-4xl mx-auto">
 
         {/* Back Button */}
-        <div className="mb-6">
+        <div className="mb-3 md:mb-6">
           <BackButton />
         </div>
 

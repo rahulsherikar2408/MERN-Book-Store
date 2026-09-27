@@ -29,17 +29,15 @@ function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen pt-20 p-4 bg-gray-50">
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 mb-8">
-
           <div>
             <h1 className="text-3xl sm:text-4xl font-bold text-gray-800">
               Books List
             </h1>
-
             <p className="mt-2 text-gray-500">
               Browse and manage your book collection.
             </p>
