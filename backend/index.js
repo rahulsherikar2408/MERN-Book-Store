@@ -25,7 +25,7 @@ app.use(express.json());
 
 // Middleware for handling CORS Policy
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: process.env.API_URL,
     credentials: true
 }));
 
