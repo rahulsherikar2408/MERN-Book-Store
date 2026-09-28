@@ -34,10 +34,12 @@ function App() {
 
     checkServer();
 
-    const interval = setInterval(checkServer, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
+    if(!serverReady){
+      const interval = setInterval(checkServer, 3000);
+      return () => clearInterval(interval);
+    }
+    
+  });
 
   if (!serverReady) {
     return <ServerLoading />;
