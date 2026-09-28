@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
-import { GiHamburgerMenu } from "react-icons/gi";
 
 import { useAuth } from "../context/AuthContext";
 

@@ -8,6 +8,7 @@ import connectDB from './config/db.js'
 
 import bookRouter from './routes/bookRoute.js'
 import authRouter from "./routes/authRoute.js";
+import healthRouter from './routes/healthRoute.js'
 
 const app = express();
 const PORT = process.env.PORT;
@@ -25,18 +26,14 @@ app.use(cors({
     credentials: true
 }));
 
-// app.use(cors({
-//     origin: "http://localhost:5173",
-//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//     allowedHeaders: ['Content-Type'],
-// }));
-
 app.use(cookieParser());
 
 //Routes
 app.use("/api/auth", authRouter);
 
 app.use('/api/books', bookRouter);
+
+app.use('/api/health', healthRouter);
 
 // Starting the server
 app.listen(PORT, () => {
