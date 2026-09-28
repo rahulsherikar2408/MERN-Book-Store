@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 import { useAuth } from "../context/AuthContext";
 import Spinner from "../components/Spinner";
@@ -10,6 +11,8 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const { signup } = useAuth();
   const navigate = useNavigate();
@@ -103,27 +106,119 @@ const Signup = () => {
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Password
               </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter your password"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="
+                    w-full
+                    px-4
+                    py-3
+                    pr-12
+                    border
+                    border-gray-300
+                    rounded-lg
+                    outline-none
+                    transition
+                    focus:border-sky-500
+                    focus:ring-2
+                    focus:ring-sky-100
+                  "
+                  placeholder="Enter your password"
+                  required
+                />
+
+                {/* Show / Hide Password */}
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="
+                    absolute
+                    right-3
+                    top-1/2
+                    -translate-y-1/2
+                    text-gray-500
+                    hover:text-sky-600
+                    transition-colors
+                    duration-200
+                    cursor-pointer
+                  "
+                  aria-label={
+                    showPassword
+                      ? "Hide password"
+                      : "Show password"
+                  }
+                >
+                  {showPassword ? (
+                    <AiOutlineEyeInvisible className="text-xl" />
+                  ) : (
+                    <AiOutlineEye className="text-xl" />
+                  )}
+                </button>
+
+              </div>
             </div>
+
             {/* Confirm Password */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Confirm Password
               </label>
-              <input
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Confirm your password"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-              />
+              <div className="relative">
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="
+                    w-full
+                    px-4
+                    py-3
+                    pr-12
+                    border
+                    border-gray-300
+                    rounded-lg
+                    outline-none
+                    transition
+                    focus:border-sky-500
+                    focus:ring-2
+                    focus:ring-sky-100
+                  "
+                  placeholder="Enter your password"
+                  required
+                />
+
+                {/* Show / Hide Password */}
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="
+                    absolute
+                    right-3
+                    top-1/2
+                    -translate-y-1/2
+                    text-gray-500
+                    hover:text-sky-600
+                    transition-colors
+                    duration-200
+                    cursor-pointer
+                  "
+                  aria-label={
+                    showConfirmPassword
+                      ? "Hide password"
+                      : "Show password"
+                  }
+                >
+                  {showConfirmPassword ? (
+                    <AiOutlineEyeInvisible className="text-xl" />
+                  ) : (
+                    <AiOutlineEye className="text-xl" />
+                  )}
+                </button>
+
+              </div>
             </div>
+
             {/* Signup Button */}
             <button
               type="submit"
