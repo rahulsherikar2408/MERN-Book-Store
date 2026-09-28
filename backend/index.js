@@ -25,7 +25,7 @@ app.use(express.json());
 
 // Middleware for handling CORS Policy
 app.use(cors({
-    origin: process.env.API_URL,
+    origin: process.env.FRONTEND_API_URL,
     credentials: true
 }));
 
