@@ -78,8 +78,12 @@ export const login = async (req, res) => {
         );
         res.cookie("token", token, {
             httpOnly: true,
-            maxAge: 24 * 60 * 60 * 1000
-        })
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production"
+                ? "none"
+                : "lax",
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        });
 
         return res.status(200).json({
             message: "Login successful",
@@ -97,7 +101,7 @@ export const login = async (req, res) => {
     }
 }
 
-export const logout = async(req, res) => {
+export const logout = async (req, res) => {
     res.clearCookie("token");
     return res.status(200).json({
         message: "Logout successful"
@@ -105,20 +109,20 @@ export const logout = async(req, res) => {
 }
 
 export const getCurrentUser = async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id).select("-password");
-    if (!user) {
-      return res.status(404).json({
-        message: "User not found"
-      });
-    }
+    try {
+        const user = await User.findById(req.user.id).select("-password");
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
 
-    return res.status(200).json({
-      user
-    });
-  } catch (error) {
-    return res.status(500).json({
-      message: "Server error"
-    });
-  }
+        return res.status(200).json({
+            user
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: "Server error"
+        });
+    }
 }
