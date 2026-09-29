@@ -61,7 +61,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 pt-20">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 py-20">
       {loading ? (
         <div className="flex justify-center items-center py-4">
           <Spinner />

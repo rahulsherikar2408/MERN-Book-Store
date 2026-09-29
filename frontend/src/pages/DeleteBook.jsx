@@ -27,7 +27,7 @@ const DeleteBook = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20 p-4 sm:p-6">
+    <div className="min-h-screen bg-gray-50 py-20 p-4">
       <div className="max-w-3xl mx-auto">
 
         {/* Back Button */}

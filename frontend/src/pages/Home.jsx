@@ -29,7 +29,7 @@ function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen pt-20 p-4 bg-gray-50">
+    <div className="min-h-screen py-20 p-4 bg-gray-50">
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
